@@ -1,0 +1,21 @@
+service: kakaobot-helloworld
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: production
+  region: ap-northeast-2
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+functions:
+  keyboard:
+    handler: src/index.keyboard
+    memorySize: 128
+    timeout: 5
+    events:
+      - http:
+          path: keyboard
+          method: get
+          cors: true
