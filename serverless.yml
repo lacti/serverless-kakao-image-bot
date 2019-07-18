@@ -1,7 +1,7 @@
-service: kakaobot-helloworld
+service: kakaobot-image-bot
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   stage: production
   region: ap-northeast-2
 
@@ -18,4 +18,43 @@ functions:
       - http:
           path: keyboard
           method: get
-          cors: true
+  message:
+    handler: src/index.message
+    memorySize: 128
+    timeout: 5
+    events:
+      - http:
+          path: message
+          method: post
+  addFriend:
+    handler: src/index.addFriend
+    memorySize: 128
+    timeout: 5
+    events:
+      - http:
+          path: friend
+          method: post
+  deleteFriend:
+    handler: src/index.deleteFriend
+    memorySize: 128
+    timeout: 5
+    events:
+      - http:
+          path: friend/{userKey}
+          method: delete
+          request:
+            parameters:
+              paths:
+                userKey: true
+  leaveChatRoom:
+    handler: src/index.leaveChatRoom
+    memorySize: 128
+    timeout: 5
+    events:
+      - http:
+          path: chat_room/{userKey}
+          method: delete
+          request:
+            parameters:
+              paths:
+                userKey: true

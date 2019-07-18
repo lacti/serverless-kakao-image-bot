@@ -1,32 +1,41 @@
 {
-  "name": "kakaobot-helloworld",
+  "name": "kakaobot-image-bot",
+  "description": "A simple example that processes an image with a backend via Kakaotalk.",
   "version": "1.0.0",
   "main": "src/index.ts",
+  "author": {
+    "name": "jaeyoung.choi",
+    "email": "lactrious@gmail.com"
+  },
   "license": "MIT",
   "scripts": {
     "start": "sls offline",
-    "deploy": "SLS_DEBUG=* sls deploy",
-    "update": "SLS_DEBUG=* sls deploy function --function keyboard"
+    "deploy": "sls deploy",
+    "update": "sls deploy -f message"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.13",
-    "@types/node": "^10.12.1",
-    "prettier": "^1.14.3",
-    "serverless": "^1.32.0",
-    "serverless-offline": "^3.30.0",
-    "serverless-webpack": "^5.2.0",
-    "ts-loader": "^5.2.1",
-    "tslint": "^5.11.0",
-    "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.1.1",
-    "webpack": "^4.20.2"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "singleQuote": true,
-    "trailingComma": "all"
+    "@types/aws-lambda": "^8.10.30",
+    "@types/image-size": "^0.7.0",
+    "@types/node": "10",
+    "@types/uuid": "^3.4.5",
+    "prettier": "^1.18.2",
+    "serverless": "^1.47.0",
+    "serverless-offline": "^5.8.0",
+    "serverless-webpack": "^5.3.1",
+    "ts-loader": "^6.0.4",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.36.1"
   },
   "dependencies": {
-    "api-gateway-rest-handler": "^0.1.0"
+    "api-gateway-rest-handler": "^0.1.5",
+    "image-size": "^0.6.3",
+    "source-map-support": "^0.5.12",
+    "tempy": "^0.3.0",
+    "uuid": "^3.3.2"
+  },
+  "optionalDependencies": {
+    "aws-sdk": "2.437.0"
   }
 }
