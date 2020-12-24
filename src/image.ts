@@ -1,10 +1,12 @@
 import * as fs from "fs";
-import { get as httpGet } from "http";
-import * as sizeOf from "image-size";
-import { Readable } from "stream";
 import * as tempy from "tempy";
-import { v4 as uuid4 } from "uuid";
+
 import { getImageSignedUrl, uploadObject, waitObjectWhile } from "./s3";
+
+import { Readable } from "stream";
+import { get as httpGet } from "http";
+import sizeOf from "image-size";
+import { v4 as uuid4 } from "uuid";
 
 const pushBucket = process.env.PUSH_BUCKET!;
 const pullBucket = process.env.PULL_BUCKET!;
@@ -35,18 +37,19 @@ export const processImage = async (
   return {
     url: imageUrl,
     width: size.width,
-    height: size.height
+    height: size.height,
   };
 };
 
 const readSizeFromImageUrl = (url: string) =>
   new Promise<{ width: number; height: number }>((resolve, reject) =>
-    httpGet(url, incoming => {
+    httpGet(url, (incoming) => {
       const tempfile = tempy.file({ extension: "jpg" });
       incoming.pipe(fs.createWriteStream(tempfile)).end(() => {
-        sizeOf(
-          tempfile,
-          (error, dimension) => (error ? reject(error) : resolve(dimension))
+        sizeOf(tempfile, (error, dimension) =>
+          error
+            ? reject(error)
+            : resolve({ width: dimension?.width!, height: dimension?.height! })
         );
       });
     }).on("error", reject)
